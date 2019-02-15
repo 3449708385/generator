@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mgp.usermanager.service.impl.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.mgp.usermanager.pojo.UserRole" >
+    <id column="userRoleRelationId" property="userrolerelationid" jdbcType="BIGINT" />
+    <result column="RelationUserId" property="relationuserid" jdbcType="BIGINT" />
+    <result column="RelationRoleId" property="relationroleid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userRoleRelationId, RelationUserId, RelationRoleId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_user_role
+    where userRoleRelationId = #{userrolerelationid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sys_user_role
+    where userRoleRelationId = #{userrolerelationid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mgp.usermanager.pojo.UserRole" >
+    insert into t_sys_user_role (userRoleRelationId, RelationUserId, 
+      RelationRoleId)
+    values (#{userrolerelationid,jdbcType=BIGINT}, #{relationuserid,jdbcType=BIGINT}, 
+      #{relationroleid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mgp.usermanager.pojo.UserRole" >
+    insert into t_sys_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userrolerelationid != null" >
+        userRoleRelationId,
+      </if>
+      <if test="relationuserid != null" >
+        RelationUserId,
+      </if>
+      <if test="relationroleid != null" >
+        RelationRoleId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userrolerelationid != null" >
+        #{userrolerelationid,jdbcType=BIGINT},
+      </if>
+      <if test="relationuserid != null" >
+        #{relationuserid,jdbcType=BIGINT},
+      </if>
+      <if test="relationroleid != null" >
+        #{relationroleid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mgp.usermanager.pojo.UserRole" >
+    update t_sys_user_role
+    <set >
+      <if test="relationuserid != null" >
+        RelationUserId = #{relationuserid,jdbcType=BIGINT},
+      </if>
+      <if test="relationroleid != null" >
+        RelationRoleId = #{relationroleid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where userRoleRelationId = #{userrolerelationid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mgp.usermanager.pojo.UserRole" >
+    update t_sys_user_role
+    set RelationUserId = #{relationuserid,jdbcType=BIGINT},
+      RelationRoleId = #{relationroleid,jdbcType=BIGINT}
+    where userRoleRelationId = #{userrolerelationid,jdbcType=BIGINT}
+  </update>
+</mapper>
